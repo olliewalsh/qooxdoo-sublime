@@ -6,7 +6,6 @@ import re
 
 settings = sublime.load_settings("qooxdoo.sublime-settings")
 
-
 class AutoCompletion(sublime_plugin.EventListener):
     def __init__(self):
         self.debug = "AutoCompletion" in settings.get("debug")
@@ -14,7 +13,7 @@ class AutoCompletion(sublime_plugin.EventListener):
 
     def _getApi(self):
         if not self.__qxApi:
-            qxLibs = settings.get("libraries")
+            qxLibs = sublime.active_window().active_view().settings().get("qooxdoo", {}).get("libraries", {})
             if not qxLibs or len(qxLibs) == 0:
                 if self.debug:
                     print("No libraries configured in qooxdoo.sublime-settings, scanning project folders.")
